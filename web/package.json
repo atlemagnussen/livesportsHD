@@ -7,8 +7,6 @@
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview"
   },
-  "dependencies": {
-  },
   "devDependencies": {
   }
 }

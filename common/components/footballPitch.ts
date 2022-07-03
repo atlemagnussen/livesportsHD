@@ -15,6 +15,7 @@ export class FootballPitch extends LitElement {
 
     render() {
         return html`
+            <p>Pitch</p>
             <canvas id="pitch">canvas?</canvas>
         `
     }
