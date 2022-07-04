@@ -109,25 +109,67 @@ export class FootballPitch extends LitElement {
         ctx.fill()
         ctx.closePath()
 
-        let goalWidth = 7.3
-        goalWidth = goalWidth * factor
+        const gw = 7.3
+        const goalWidth = gw * factor
 
+        const fy = 5.5
+        const fyWidth = fy * factor        
+        const fiveYardLenght = (2*fy + gw) * factor
+
+        
+        // home penalty spot
+        const ps = 11
+        const penaltySpot = ps * factor
+        ctx.beginPath()
+        ctx.arc(canvas.width / 2, edge + penaltySpot, 2, 0, 2*Math.PI, false)
+        ctx.fillStyle = colorLines
+        ctx.fill()
+        ctx.closePath()
         //Home penalty box
-        // ctx.beginPath()
-        // ctx.rect(0, (canvas.height - 322) / 2, 132, 322);
-        // ctx.stroke()
-        // ctx.closePath()
+        const penaltyBoxLength = fiveYardLenght + penaltySpot*2
+        const penaltyBoxWidth = fyWidth + penaltySpot
+        ctx.beginPath()
+        ctx.rect((canvas.width / 2)-(penaltyBoxLength/2), edge, penaltyBoxLength, penaltyBoxWidth)
+        ctx.stroke()
+        ctx.closePath()
         //Home goal box
-        // ctx.beginPath()
-        // ctx.rect(0, (canvas.height - 146) / 2, 44, 146)
-        // ctx.stroke()
-        // ctx.closePath()
+        ctx.beginPath()
+        ctx.rect((canvas.width / 2)-(fiveYardLenght/2), edge, fiveYardLenght, fyWidth)
+        ctx.stroke()
+        ctx.closePath()
         //Home goal 
         ctx.beginPath()
         ctx.moveTo((canvas.width / 2)-(goalWidth/2), edge)
         ctx.lineTo((canvas.width / 2)-(goalWidth/2), 0)
         ctx.lineTo((canvas.width / 2)+(goalWidth/2), 0)
         ctx.lineTo((canvas.width / 2)+(goalWidth/2), edge)
+        ctx.lineWidth = 2
+        ctx.stroke()
+        ctx.closePath()
+        ctx.lineWidth = 1
+
+        // away penalty spot
+        ctx.beginPath()
+        ctx.arc(canvas.width / 2, fieldHeight + edge - penaltySpot, 2, 0, 2*Math.PI, false)
+        ctx.fillStyle = colorLines
+        ctx.fill()
+        ctx.closePath()
+        //away penalty box
+        ctx.beginPath()
+        ctx.rect((canvas.width / 2)-(penaltyBoxLength/2), fieldHeight+edge, penaltyBoxLength, -penaltyBoxWidth)
+        ctx.stroke()
+        ctx.closePath()
+        //Home goal box
+        ctx.beginPath()
+        ctx.rect((canvas.width / 2)-(fiveYardLenght/2), fieldHeight+edge, fiveYardLenght, -fyWidth)
+        ctx.stroke()
+        ctx.closePath()
+        //Home goal 
+        ctx.beginPath()
+        ctx.moveTo((canvas.width / 2)-(goalWidth/2), fieldHeight+edge)
+        ctx.lineTo((canvas.width / 2)-(goalWidth/2), height)
+        ctx.lineTo((canvas.width / 2)+(goalWidth/2), height)
+        ctx.lineTo((canvas.width / 2)+(goalWidth/2), fieldHeight+edge)
         ctx.lineWidth = 2
         ctx.stroke()
         ctx.closePath()
