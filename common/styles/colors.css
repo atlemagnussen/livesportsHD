@@ -1,0 +1,12 @@
+:root {
+    /* color definitions */
+    --ls-black: #171717;
+    --ls-green: #060;
+    --ls-greenblue: rgb(4, 112, 114);
+    --ls-white: #FFF;
+
+    /* theme*/
+    --ls-background: var(--ls-black);
+    --ls-pitch: var(--ls-greenblue);
+    --ls-lines: var(--ls-white);
+}

@@ -1,5 +1,6 @@
 import { createApp, defineCustomElement } from "vue"
 
+import "@common/styles/colors.css"
 import "@app/css/global.css"
 import App from './App.vue'
 

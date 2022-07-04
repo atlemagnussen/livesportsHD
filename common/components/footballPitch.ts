@@ -32,6 +32,9 @@ export class FootballPitch extends LitElement {
     length = 100
     width = 60
     edge = 2
+
+    midCircleR = 9.1
+
     render() {
         return html`
         <div id="wrapper">
@@ -69,16 +72,21 @@ export class FootballPitch extends LitElement {
         canvas.width = width
         canvas.height = height
         const ctx = canvas.getContext("2d")!
+
+        const computedStyle = getComputedStyle(this)
+        const colorPitch = computedStyle.getPropertyValue("--ls-pitch")
+        const colorLines = computedStyle.getPropertyValue("--ls-lines")
+
         ctx.clearRect(0, 0, width, height)
         // color background
-        ctx.fillStyle = "#060"
+        ctx.fillStyle = colorPitch
         ctx.fillRect(0, 0, width, height)
 
         // sidelines
         ctx.beginPath()
         ctx.rect(edge, edge, fieldWidth, fieldHeight)
         ctx.lineWidth = 1
-        ctx.strokeStyle = "#FFF"
+        ctx.strokeStyle = colorLines
         ctx.stroke()
         ctx.closePath()
 
@@ -86,8 +94,21 @@ export class FootballPitch extends LitElement {
         ctx.beginPath()
         ctx.moveTo(edge, height / 2)
         ctx.lineTo(edge+fieldWidth, height / 2)
-        ctx.stroke();
-        ctx.closePath();
+        ctx.stroke()
+        ctx.closePath()
+
+        //Mid circle
+        const radiusMid = this.midCircleR * factor
+        ctx.beginPath()
+        ctx.arc(canvas.width / 2, canvas.height / 2, radiusMid, 0, 2*(Math.PI), false)
+        ctx.stroke()
+        ctx.closePath()
+        //Mid point
+        ctx.beginPath()
+        ctx.arc(canvas.width / 2, canvas.height / 2, 2, 0, 2*Math.PI, false)
+        ctx.fillStyle = colorLines
+        ctx.fill()
+        ctx.closePath()
     }
 }
 

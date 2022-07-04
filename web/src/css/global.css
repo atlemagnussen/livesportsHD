@@ -1,4 +1,5 @@
 body {
-    background: black;
-    color: white;
+    background: var(--ls-background);
+    color: var(--ls-lines);
 }
+
