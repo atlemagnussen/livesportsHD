@@ -1,5 +1,6 @@
 import { createApp, defineCustomElement } from "vue"
 
+import "@app/css/global.css"
 import App from './App.vue'
 
 import "@common/components/footballPitch"

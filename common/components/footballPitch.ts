@@ -31,6 +31,7 @@ export class FootballPitch extends LitElement {
 
     length = 100
     width = 60
+    edge = 2
     render() {
         return html`
         <div id="wrapper">
@@ -50,19 +51,43 @@ export class FootballPitch extends LitElement {
         const wLim = this.wrapper?.clientWidth
         const hLim = this.wrapper?.clientHeight
 
-        const wFactor = wLim / this.width
-        const hFactor = hLim / this.length
+        const pitchWidth = this.width + 2*this.edge
+        const pitchHeight = this.length + 2*this.edge
+
+        const wFactor = wLim / pitchWidth
+        const hFactor = hLim / pitchHeight
 
         const factor = Math.min(wFactor, hFactor)
 
-        const width = this.width * factor
-        const height = this.length * factor
+        const width =  pitchWidth * factor
+        const height = pitchHeight * factor
+        const edge = this.edge * factor
+
+        const fieldWidth = width - (2*edge)
+        const fieldHeight = height - (2*edge)
+
         canvas.width = width
         canvas.height = height
         const ctx = canvas.getContext("2d")!
-        ctx.clearRect(0, 0, width, height);
-        ctx.fillStyle = "#060";
-        ctx.fillRect(0, 0, width, height);
+        ctx.clearRect(0, 0, width, height)
+        // color background
+        ctx.fillStyle = "#060"
+        ctx.fillRect(0, 0, width, height)
+
+        // sidelines
+        ctx.beginPath()
+        ctx.rect(edge, edge, fieldWidth, fieldHeight)
+        ctx.lineWidth = 1
+        ctx.strokeStyle = "#FFF"
+        ctx.stroke()
+        ctx.closePath()
+
+        // Mid line
+        ctx.beginPath()
+        ctx.moveTo(edge, height / 2)
+        ctx.lineTo(edge+fieldWidth, height / 2)
+        ctx.stroke();
+        ctx.closePath();
     }
 }
 
