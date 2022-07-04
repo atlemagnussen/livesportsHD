@@ -5,8 +5,7 @@
 </script>
 
 <template>
-    <hello-world msg="Hello Vue 3 + TypeScript + Vite"></hello-world>
-    <p>To</p>
+    <h1>Hello football pitch</h1>
     <football-pitch></football-pitch>
 </template>
 

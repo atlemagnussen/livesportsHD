@@ -1,5 +1,5 @@
 import { html, css, LitElement } from "lit"
-import { customElement, property } from "lit/decorators.js"
+import { customElement } from "lit/decorators.js"
 import { createRef, ref } from "lit/directives/ref.js"
 import {query} from 'lit/decorators/query.js';
 
@@ -11,7 +11,7 @@ export class FootballPitch extends LitElement {
             display: block;
             border: solid 1px gray;
             padding: 5px;
-            width: 800px;
+            width: 400px;
             height: 600px;
         }
         div {
@@ -19,7 +19,8 @@ export class FootballPitch extends LitElement {
             height: 100%;
         }
         canvas {
-            position: absolute;
+            
+            /* position: absolute; */
         }
     `
 
@@ -28,6 +29,8 @@ export class FootballPitch extends LitElement {
     @query("#wrapper")
     wrapper: HTMLDivElement | undefined
 
+    length = 100
+    width = 60
     render() {
         return html`
         <div id="wrapper">
@@ -44,20 +47,27 @@ export class FootballPitch extends LitElement {
             return
 
         const canvas = this.canvas.value
-        const w = this.wrapper?.clientWidth
-        const h = this.wrapper?.clientHeight
+        const wLim = this.wrapper?.clientWidth
+        const hLim = this.wrapper?.clientHeight
 
-        canvas.width = w
-        canvas.height = h
+        const wFactor = wLim / this.width
+        const hFactor = hLim / this.length
+
+        const factor = Math.min(wFactor, hFactor)
+
+        const width = this.width * factor
+        const height = this.length * factor
+        canvas.width = width
+        canvas.height = height
         const ctx = canvas.getContext("2d")!
-        ctx.clearRect(0, 0, w, h);
+        ctx.clearRect(0, 0, width, height);
         ctx.fillStyle = "#060";
-        ctx.fillRect(0, 0, w, h);
+        ctx.fillRect(0, 0, width, height);
     }
 }
 
 declare global {
     interface HTMLElementTagNameMap {
-        'my-element': MyElement
+        'football-pitch': FootballPitch
     }
 }
