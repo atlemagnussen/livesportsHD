@@ -33,8 +33,6 @@ export class FootballPitch extends LitElement {
     width = 60
     edge = 2
 
-    midCircleR = 9.1
-
     render() {
         return html`
         <div id="wrapper">
@@ -97,8 +95,9 @@ export class FootballPitch extends LitElement {
         ctx.stroke()
         ctx.closePath()
 
+        const midCircleR = 9.1
         //Mid circle
-        const radiusMid = this.midCircleR * factor
+        const radiusMid = midCircleR * factor
         ctx.beginPath()
         ctx.arc(canvas.width / 2, canvas.height / 2, radiusMid, 0, 2*(Math.PI), false)
         ctx.stroke()
@@ -109,6 +108,30 @@ export class FootballPitch extends LitElement {
         ctx.fillStyle = colorLines
         ctx.fill()
         ctx.closePath()
+
+        let goalWidth = 7.3
+        goalWidth = goalWidth * factor
+
+        //Home penalty box
+        // ctx.beginPath()
+        // ctx.rect(0, (canvas.height - 322) / 2, 132, 322);
+        // ctx.stroke()
+        // ctx.closePath()
+        //Home goal box
+        // ctx.beginPath()
+        // ctx.rect(0, (canvas.height - 146) / 2, 44, 146)
+        // ctx.stroke()
+        // ctx.closePath()
+        //Home goal 
+        ctx.beginPath()
+        ctx.moveTo((canvas.width / 2)-(goalWidth/2), edge)
+        ctx.lineTo((canvas.width / 2)-(goalWidth/2), 0)
+        ctx.lineTo((canvas.width / 2)+(goalWidth/2), 0)
+        ctx.lineTo((canvas.width / 2)+(goalWidth/2), edge)
+        ctx.lineWidth = 2
+        ctx.stroke()
+        ctx.closePath()
+        ctx.lineWidth = 1
     }
 }
 
